@@ -13,7 +13,7 @@ export const getEsClient = async () => {
         log: process.env.NODE_ENV === "production" ? undefined : "trace"
       });
     } catch (err) {}
-
+    console.log(`could not connect to es ${tries} tries left`);
     tries -= 1;
     // wait 30 seconds
     await sleep(30);

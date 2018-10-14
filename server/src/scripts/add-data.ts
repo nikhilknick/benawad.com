@@ -54,6 +54,7 @@ async function addData(esClient: Client, index: string, type: string) {
 }
 
 async function main(index: string, type: string) {
+  console.log("add-data about to getEsClient");
   const esClient = await getEsClient();
   const exists = await esClient.indices.exists({ index });
   console.log(`${index} exists: ${exists}`);
