@@ -18,7 +18,7 @@ export const getEsClient = async () => {
     console.log(`could not connect to es ${tries} tries left`);
     tries -= 1;
     // wait 30 seconds
-    await sleep(30);
+    await sleep(30000);
   }
 
   throw new Error("es timeout");
