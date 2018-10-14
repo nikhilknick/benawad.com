@@ -8,7 +8,8 @@
     "type-check": "tsc",
     "schema:download": "apollo schema:download --endpoint=http://localhost:4000/graphql",
     "codegen:generate": "apollo codegen:generate --queries=./components/**/*.tsx --schema=./schema.json --outputFlat --target=typescript ./lib/schema-types.ts",
-    "gen:types": "npm run schema:download && npm run codegen:generate"
+    "gen:types": "npm run schema:download && npm run codegen:generate",
+    "docker:build": "docker build -t web ."
   },
   "dependencies": {
     "@types/graphql": "^14.0.2",
