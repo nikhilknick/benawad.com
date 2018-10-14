@@ -1,0 +1,7 @@
+benawad.com {
+  proxy / web:3000
+}
+
+server.benawad.com {
+    proxy / server:4000
+}
