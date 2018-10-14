@@ -37,3 +37,5 @@ services:
       - /root/benawad.com/goaccess.conf:/srv/data/goaccess.conf
       - /root/goaccess/.html:/srv/report
       - /root/logs:/srv/logs
+    depends_on:
+      - proxy

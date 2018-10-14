@@ -1,18 +1,20 @@
 benawad.com {
+  log / /etc/logs/requests.log "{combined}"
   proxy / web:3000
 }
 
 www.benawad.com {
+  log / /etc/logs/requests.log "{combined}"
   proxy / web:3000
 }
 
 server.benawad.com {
-    proxy / server:4000
+  log / /etc/logs/requests.log "{combined}"
+  proxy / server:4000
 }
 
 goaccess.benawad.com {
+  log / /etc/logs/requests.log "{combined}"
   root /site/goaccess
   gzip
 }
-
-log / /etc/logs/requests.log "{combined}"
