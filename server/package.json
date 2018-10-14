@@ -23,6 +23,6 @@
     "build": "tsc -b",
     "add:data": "ts-node src/scripts/add-data.ts",
     "download:images": "mkdir images && ts-node src/scripts/download-images.ts",
-    "docker:build": "docker build -t web ."
+    "docker:build": "docker build -t server ."
   }
 }
