@@ -20,7 +20,11 @@ const resolvers: IResolvers = {
   Video: {
     id: parent => parent.vidId,
     thumbnail: (parent, _, { req }) =>
-      `${req.protocol}://${req.get("host")}/images/${parent.vidId}.jpg`
+      `${
+        process.env.NODE_ENV === "production"
+          ? "https://www.benawad.com"
+          : "localhost:4000"
+      }/images/${parent.vidId}.jpg`
   },
   Query: {
     search: async (_, { query }, { esClient }) => {
