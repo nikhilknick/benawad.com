@@ -23,7 +23,7 @@ async function createIndex(index: string, type: string) {
 }
 
 async function addData(index: string, type: string) {
-  esClient.bulk({
+  await esClient.bulk({
     body: allVideos.reduce(
       (acc, cv) => {
         // @ts-ignore
@@ -54,13 +54,16 @@ async function addData(index: string, type: string) {
 
 async function main(index: string, type: string) {
   const exists = await esClient.indices.exists({ index });
+  console.log(`${index} exists: ${exists}`);
   if (exists) {
     // await esClient.indices.delete({ index });
     return;
   }
 
+  console.log("creating index...");
   await createIndex(index, type);
 
+  console.log("adding data...");
   await addData(index, type);
 }
 
