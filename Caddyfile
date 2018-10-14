@@ -18,3 +18,10 @@ goaccess.benawad.com {
   root /site/goaccess
   gzip
 }
+
+goaccess.benawad.com:7890 {
+ proxy / goaccess:7890 {
+   websocket
+ }
+}
+
