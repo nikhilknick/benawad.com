@@ -34,7 +34,7 @@ services:
   goaccess:
     image: allinurl/goaccess
     volumes:
-      - /root/benawad.com/goaccess.conf:/srv/data/goaccess.conf
+      - /root/benawad.com/goaccess/data/:/srv/data
       - /root/goaccess/.html:/srv/report
       - /root/logs:/srv/logs
     depends_on:
