@@ -37,8 +37,6 @@ async function addData(esClient: Client, index: string, type: string) {
           titleSuggest.push(parts.slice(i).join(" "));
         });
 
-        console.log(titleSuggest);
-
         acc.push({
           vidId: cv.id.videoId,
           title: cv.snippet.title,
