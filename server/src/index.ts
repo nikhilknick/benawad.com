@@ -2,7 +2,7 @@ import { ApolloServer, gql, IResolvers } from "apollo-server-express";
 import express from "express";
 import path from "path";
 
-import { INDEX_NAME, INDEX_TYPE, esClient } from "./es-client";
+import { INDEX_NAME, INDEX_TYPE, getEsClient } from "./es-client";
 
 const typeDefs = gql`
   type Video {
@@ -23,7 +23,7 @@ const resolvers: IResolvers = {
       `${req.protocol}://${req.get("host")}/images/${parent.vidId}.jpg`
   },
   Query: {
-    search: async (_, { query }) => {
+    search: async (_, { query }, { esClient }) => {
       const results = await esClient.search({
         index: INDEX_NAME,
         type: INDEX_TYPE,
@@ -50,18 +50,24 @@ const resolvers: IResolvers = {
   }
 };
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }: any) => ({ req })
-});
+async function main() {
+  const esClient = await getEsClient();
 
-const app = express();
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }: any) => ({ req, esClient })
+  });
 
-app.use("/images", express.static(path.join(__dirname, "../images")));
+  const app = express();
 
-server.applyMiddleware({ app });
+  app.use("/images", express.static(path.join(__dirname, "../images")));
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-);
+  server.applyMiddleware({ app });
+
+  app.listen({ port: 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  );
+}
+
+main();

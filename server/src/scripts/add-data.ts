@@ -1,7 +1,8 @@
-import { INDEX_NAME, INDEX_TYPE, esClient } from "../es-client";
+import { INDEX_NAME, INDEX_TYPE, getEsClient } from "../es-client";
 import allVideos from "../../all_videos.json";
+import { Client } from "elasticsearch";
 
-async function createIndex(index: string, type: string) {
+async function createIndex(esClient: Client, index: string, type: string) {
   await esClient.indices.create({ index });
   await esClient.indices.putMapping({
     index,
@@ -22,7 +23,7 @@ async function createIndex(index: string, type: string) {
   });
 }
 
-async function addData(index: string, type: string) {
+async function addData(esClient: Client, index: string, type: string) {
   await esClient.bulk({
     body: allVideos.reduce(
       (acc, cv) => {
@@ -53,6 +54,7 @@ async function addData(index: string, type: string) {
 }
 
 async function main(index: string, type: string) {
+  const esClient = await getEsClient();
   const exists = await esClient.indices.exists({ index });
   console.log(`${index} exists: ${exists}`);
   if (exists) {
@@ -61,10 +63,10 @@ async function main(index: string, type: string) {
   }
 
   console.log("creating index...");
-  await createIndex(index, type);
+  await createIndex(esClient, index, type);
 
   console.log("adding data...");
-  await addData(index, type);
+  await addData(esClient, index, type);
 }
 
 main(INDEX_NAME, INDEX_TYPE);
