@@ -28,6 +28,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "7890:7890"
     depends_on:
       - web
       - server
