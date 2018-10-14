@@ -10,6 +10,8 @@ services:
       - "4000:4000"
     volumes:
       - /root/benawad.com/server/images:/usr/app/images
+    depends_on:
+      - es
   web:
     image: web
     ports:
@@ -24,3 +26,4 @@ services:
       - "443:443"
     depends_on:
       - web
+      - server
