@@ -22,7 +22,7 @@ const resolvers: IResolvers = {
     thumbnail: (parent, _, { req }) =>
       `${
         process.env.NODE_ENV === "production"
-          ? "https://www.benawad.com"
+          ? "https://server.benawad.com"
           : "localhost:4000"
       }/images/${parent.vidId}.jpg`
   },
