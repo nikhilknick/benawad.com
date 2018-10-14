@@ -9,3 +9,10 @@ www.benawad.com {
 server.benawad.com {
     proxy / server:4000
 }
+
+goaccess.benawad.com {
+  root /site/goaccess
+  gzip
+}
+
+log / /etc/logs/requests.log "{combined}"

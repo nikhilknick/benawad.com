@@ -6,8 +6,6 @@ services:
       - "9200:9200"
     environment:
       - ES_JAVA_OPTS= -Xms256m -Xmx256m
-    volumes:
-      - /root/esdata:/usr/share/elasticsearch/data
   server:
     image: server
     ports:
@@ -25,9 +23,17 @@ services:
     volumes:
       - /root/benawad.com/Caddyfile:/etc/Caddyfile
       - /root/.caddy:/root/.caddy
+      - /root/logs:/etc/logs
+      - /root/goaccess/.html:/site/goaccess
     ports:
       - "80:80"
       - "443:443"
     depends_on:
       - web
       - server
+  goaccess:
+    image: allinurl/goaccess
+    volumes:
+      - /root/goaccess/data:/srv/data
+      - /root/goaccess/.html:/srv/report
+      - /root/logs:/srv/logs
